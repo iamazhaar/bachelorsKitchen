@@ -6,6 +6,7 @@ from . import models
 class UserAdmin(admin.ModelAdmin):
     list_display = ["email", "name", "role", "active_status", "date_joined"]
     list_filter = ["role", "is_active"]
+    list_per_page = 10
     ordering = ["first_name", "last_name"]
     search_fields = ["email", "first_name", "last_name"]
 
