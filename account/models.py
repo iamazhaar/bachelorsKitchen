@@ -117,3 +117,8 @@ class DeliveryAddress(models.Model):
         if not profile.default_address:
             profile.default_address = self
             profile.save()
+
+    def __str__(self):
+        parts = [self.house, self.street, self.block, self.area, self.city, self.postal_code]
+        full_address = ", ".join([p for p in parts if p])
+        return full_address or "-"
