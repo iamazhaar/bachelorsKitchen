@@ -7,7 +7,7 @@ from . import models
 class UserAdmin(admin.ModelAdmin):
     list_display = ["email", "name", "role", "active_status", "date_joined"]
     list_filter = ["role", "is_active"]
-    list_per_page = 10
+    list_per_page = 20
     ordering = ["first_name", "last_name"]
     search_fields = ["email", "first_name", "last_name"]
 
@@ -23,6 +23,7 @@ class UserAdmin(admin.ModelAdmin):
         return user.is_active
     active_status.boolean = True
     active_status.short_description = "Active"
+
 
 
 
@@ -42,3 +43,18 @@ class ProfileAdmin(admin.ModelAdmin):
     @admin.display(ordering="user__email", description="Email")
     def user_email(self, profile):
         return profile.user.email
+
+
+
+
+@admin.register(models.DeliveryAddress)
+class DeliveryAddressAdmin(admin.ModelAdmin):
+    list_display = ["profile_email", "house", "street", "block", "area", "city"]
+    list_select_related = ["profile", "profile__user"]
+    list_filter = ["street", "area"]
+    list_per_page = 20
+    search_fields = ["profile__user__email"]
+
+    @admin.display(ordering="profile__user__email", description="Email")
+    def profile_email(self, deliveryaddress):
+        return deliveryaddress.profile.user.email
