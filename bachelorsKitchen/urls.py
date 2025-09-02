@@ -23,6 +23,7 @@ admin.site.index_title = "Management"
 admin.site.site_title = "BachelorsKitchen"
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('__debug__/', include(debug_toolbar.urls))
+    path("admin/", admin.site.urls),
+    path("__debug__/", include(debug_toolbar.urls)),
+    path("accounts/", include("account.urls"))
 ]
